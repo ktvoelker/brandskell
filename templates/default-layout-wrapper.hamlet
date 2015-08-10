@@ -1,0 +1,54 @@
+$newline never
+\<!doctype html>
+\<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+\<!--[if IE 7]>        <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+\<!--[if IE 8]>        <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+\<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="UTF-8">
+
+        <title>#{pageTitle pc}
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        ^{pageHead pc}
+
+        \<!--[if lt IE 9]>
+        \<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        \<![endif]-->
+
+        <script>
+            document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
+    <body>
+        <!-- navbar -->
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation
+                        <span class="icon-bar">
+                        <span class="icon-bar">
+                        <span class="icon-bar">
+                    <a class="navbar-brand" href="/">Brandreth
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/trips?page=0">Trips
+                        <li>
+                            <a href="/people">People
+                        <li>
+                            <a href="/stats">Stats
+                        <li>
+                            <a href="/leaderboard">Leaderboard
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input id="search-field" type="text" class="form-control" placeholder="Search" value="">
+                        <button id="search-btn" class="btn btn-default">Submit
+        <div class="container">
+            <header>
+            <div id="main" role="main">
+                ^{pageBody pc}
