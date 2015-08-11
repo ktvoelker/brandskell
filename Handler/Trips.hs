@@ -40,8 +40,10 @@ getTripsR page
             Left err -> error $ show err -- TODO
             Right (trips,num_trips) ->
                     defaultLayout $ do
-                        let pages = filter (>= 0) $
-                                      filter (< num_trips `div` pageSize + 1)
+                        let num_pages = if num_trips `rem` pageSize == 0
+                                            then num_trips `div` pageSize - 2
+                                            else num_trips `div` pageSize - 1
+                            pages = filter (>= 0) $ filter (<= num_pages)
                                       [(page - 2)..(page + 2)]
                         setTitle "Brandreth Guestbook"
                         $(widgetFile "trips")
