@@ -19,7 +19,7 @@ getTripsR page
             H.session conn $ H.tx Nothing $ do
                 (trips :: [(Int,Day,Day,Int,T.Text)])
                     <- H.listEx $ [H.stmt|
-                        SELECT trip.id             AS trip_id
+                        SELECT trips.id            AS trip_id
                              , min(date_start)     AS date_start
                              , max(date_end)       AS date_end
                              , count(*)            AS num_attendees
