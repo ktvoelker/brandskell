@@ -11,7 +11,7 @@ postgresSettings = HP.ParamSettings "localhost"      -- Host
                                     5432             -- Port
                                     "brandreth"      -- User
                                     "treestheyareus" -- Password
-                                    "postgres"       -- Database
+                                    "brandreth"      -- Database
 
 -- fromJust is used because the following will never be Nothing.
 -- 6 and 30 both fall within valid bounds.

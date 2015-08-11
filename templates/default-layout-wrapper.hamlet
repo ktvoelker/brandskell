@@ -37,7 +37,7 @@ $newline never
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="/trips?page=0">Trips
+                            <a href="/trips/0">Trips
                         <li>
                             <a href="/people">People
                         <li>
