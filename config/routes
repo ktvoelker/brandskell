@@ -6,3 +6,5 @@
 / HomeR GET
 
 /trips/#Int TripsR GET
+
+/trip/#Int TripR GET

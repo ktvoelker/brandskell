@@ -3,6 +3,7 @@ module Handler.Trips where
 
 import Import
 import Utils.Database
+import Utils.Days
 
 import qualified Hasql as H
 import qualified Data.Text as T
@@ -17,8 +18,7 @@ getTripsR page
         dbres <- liftIO $ do
             conn <- getDbConn
             H.session conn $ H.tx Nothing $ do
-                (trips :: [(Int,Day,Day,Int,T.Text)])
-                    <- H.listEx $ [H.stmt|
+                (trips :: [(Int,Day,Day,Int,T.Text)]) <- H.listEx $ [H.stmt|
                         SELECT trips.id            AS trip_id
                              , min(date_start)     AS date_start
                              , max(date_end)       AS date_end
@@ -45,5 +45,5 @@ getTripsR page
                                             else num_trips `div` pageSize - 1
                             pages = filter (>= 0) $ filter (<= num_pages)
                                       [(page - 2)..(page + 2)]
-                        setTitle "Brandreth Guestbook"
+                        setTitle "Trips | Brandreth Guestbook"
                         $(widgetFile "trips")

@@ -24,7 +24,9 @@ library
                      Handler.Common
                      Handler.Home
                      Handler.Trips
+                     Handler.Trip
                      Utils.Database
+                     Utils.Days
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

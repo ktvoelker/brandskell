@@ -20,5 +20,5 @@
             <a href="/trips/#{page + 1}">&raquo;
 $forall (tripid, start, end, num_people, reason) <- trips
     <a href="/trip/#{tripid}">
-        <h3>#{show start} to #{show end} - #{show reason}
+        <h3>#{showDate start} to #{showDate end} - #{reason}
         <h4>#{num_people} people went</h4>

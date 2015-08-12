@@ -1,0 +1,12 @@
+<h1>#{reason}
+<h2>#{showDate start} to #{showDate end}
+$forall (pid,name,mnick,pstart,pend,entry) <- entries
+    $maybe nick <- mnick
+        <h3>
+            <a href="/person/#{pid}">#{name} - #{nick}
+    $nothing
+        <h3>
+            <a href="/person/#{pid}">#{name}
+    <p>
+        <i>#{showDate pstart} to #{showDate pend}
+    <p>#{entry}
