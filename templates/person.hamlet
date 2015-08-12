@@ -1,0 +1,15 @@
+$maybe nick <- mnick
+    <h1>#{name} - #{nick}
+$nothing
+    <h1>#{name}
+
+$maybe user <- muser
+    <h2>#{source} (#{user})
+$nothing
+    <h2>#{source}
+
+$forall (tid,reason,start,end,entry) <- entries
+    <a href="/trip/#{tid}">
+        <h3>#{reason}
+        <h4>#{showDate start} - #{showDate end}
+    <p>#{entry}

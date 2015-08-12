@@ -25,6 +25,8 @@ library
                      Handler.Home
                      Handler.Trips
                      Handler.Trip
+                     Handler.People
+                     Handler.Person
                      Utils.Database
                      Utils.Days
 

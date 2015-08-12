@@ -34,6 +34,7 @@ getTripR tripId = do
                     FROM entries
                     INNER JOIN people ON (entries.person_id = people.id)
                     WHERE entries.trip_id = ?
+                    ORDER BY people.name ASC
                 |] tripId
             return (trip, entries)
     case dbres of

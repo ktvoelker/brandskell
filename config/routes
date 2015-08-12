@@ -8,3 +8,7 @@
 /trips/#Int TripsR GET
 
 /trip/#Int TripR GET
+
+/people PeopleR GET
+
+/person/#Int PersonR GET
