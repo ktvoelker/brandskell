@@ -34,6 +34,7 @@ CREATE TABLE "people" (
     nickname     VARCHAR(25),
     csh_username VARCHAR(25),
     source       INTEGER      NOT NULL,
+    admin        BOOLEAN      NOT NULL,
     PRIMARY KEY (id)
 );
 
