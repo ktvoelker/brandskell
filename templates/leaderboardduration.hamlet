@@ -6,7 +6,7 @@
     <tr>
         <th>Rank
         <th>Name
-        <th>Number of Trips
+        <th>Nights spend at Brandreth
     $forall (pid,name,mnick,trips,rank) <- people
         <tr>
             <td>#{rank}
