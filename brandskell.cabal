@@ -27,6 +27,7 @@ library
                      Handler.Trip
                      Handler.People
                      Handler.Person
+                     Handler.Leaderboard
                      Utils.Database
                      Utils.Days
 

@@ -1,0 +1,19 @@
+<h1>Brandreth Leaderboard by Trip Count
+<a href="/leaderboard/duration">
+    <i>
+        <p>View leaderboard by trip duration
+<table class="table table-striped">
+    <tr>
+        <th>Rank
+        <th>Name
+        <th>Nights spend at Brandreth
+    $forall (pid,name,mnick,trips,rank) <- people
+        <tr>
+            <td>#{rank}
+            <td>
+                <a href="/person/#{pid}">
+                    $maybe nick <- mnick
+                        <p>#{name} - #{nick}
+                    $nothing
+                        <p>#{name}
+            <td>#{trips}

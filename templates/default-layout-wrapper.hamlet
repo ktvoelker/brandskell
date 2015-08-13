@@ -43,7 +43,7 @@ $newline never
                         <li>
                             <a href="/stats">Stats
                         <li>
-                            <a href="/leaderboard">Leaderboard
+                            <a href="/leaderboard/trips">Leaderboard
                     <form class="navbar-form navbar-right" role="search">
                         <div class="form-group">
                             <input id="search-field" type="text" class="form-control" placeholder="Search" value="">

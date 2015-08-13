@@ -12,3 +12,6 @@
 /people PeopleR GET
 
 /person/#Int PersonR GET
+
+/leaderboard/trips LeaderboardTripsR GET
+/leaderboard/duration LeaderboardDurationR GET
