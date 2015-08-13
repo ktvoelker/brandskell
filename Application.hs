@@ -33,6 +33,7 @@ import Handler.Trips
 import Handler.Trip
 import Handler.People
 import Handler.Person
+import Handler.Stats
 import Handler.Leaderboard
 
 -- This line actually creates our YesodDispatch instance. It is the second half

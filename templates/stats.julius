@@ -1,0 +1,41 @@
+$(function () {
+    $('#yearly').highcharts({
+        title: {
+            text: 'Yearly Numbers',
+            x: -20 //center
+        },
+        xAxis: {
+            categories: #{toJSON years}
+        },
+        yAxis: {
+            title: {
+                text: 'Number of People'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }],
+            min: 0
+        },
+        tooltip: {
+            valueSuffix: ' People'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Visitors per Year',
+            data: #{toJSON trips}
+        }, {
+            name: 'Unique Visitors per Year',
+            data: #{toJSON uniqTrips}
+        }, {
+            name: 'First Time Visitors per Year',
+            data: #{toJSON noobTrips}
+        }]
+    });
+});

@@ -13,5 +13,7 @@
 
 /person/#Int PersonR GET
 
+/stats StatsR GET
+
 /leaderboard/trips LeaderboardTripsR GET
 /leaderboard/duration LeaderboardDurationR GET
