@@ -1,8 +1,8 @@
 <h1>Brandreth Leaderboard by Trip Duration
-<a href="/leaderboard/trips">
+<a href=@{LeaderboardTripsR}>
     <i>
         <p>View leaderboard by trip count
-<table class="table table-striped">
+<table .table .table-striped>
     <tr>
         <th>Rank
         <th>Name
@@ -11,7 +11,7 @@
         <tr>
             <td>#{rank}
             <td>
-                <a href="/person/#{pid}">
+                <a href=@{PersonR pid}>
                     $maybe nick <- mnick
                         <p>#{name} - #{nick}
                     $nothing

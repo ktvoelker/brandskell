@@ -1,24 +1,24 @@
-<ul class="pagination pagination-lg">
+<ul .pagination .pagination-lg>
     $if page == 0
-        <li class="disabled"}>
+        <li .disabled>
             <a href="#">&laquo;
     $else
         <li>
-            <a href="/trips/#{page - 1}">&laquo;
+            <a href=@{TripsR (page - 1)}>&laquo;
     $forall num <- pages
         $if num == page
-            <li class="active">
-                <a href="/trips/#{num}">#{num}
+            <li .active>
+                <a href=@{TripsR num}>#{num}
         $else
             <li>
-                <a href="/trips/#{num}">#{num}
+                <a href=@{TripsR num}>#{num}
     $if page == num_pages
-        <li class="disabled">
+        <li .disabled>
             <a href="#">&raquo;
     $else
         <li>
-            <a href="/trips/#{page + 1}">&raquo;
+            <a href=@{TripsR (page + 1)}>&raquo;
 $forall (tripid, start, end, num_people, reason) <- trips
-    <a href="/trip/#{tripid}">
+    <a href=@{TripR tripid}>
         <h3>#{showDate start} to #{showDate end} - #{reason}
         <h4>#{num_people} people went</h4>

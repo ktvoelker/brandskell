@@ -1,8 +1,8 @@
 $forall group <- groups
-    <div class="row">
+    <div .row>
     $forall (pid,name,mnick) <- group
-        <div class="col-md-3">
-            <a href="/person/#{pid}">
+        <div .col-md-3>
+            <a href=@{PersonR pid}>
                 $maybe nick <- mnick
                     <h4>#{name} - #{nick}
                 $nothing

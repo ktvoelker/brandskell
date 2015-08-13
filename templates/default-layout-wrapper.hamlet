@@ -32,18 +32,18 @@ $newline never
                         <span class="icon-bar">
                         <span class="icon-bar">
                         <span class="icon-bar">
-                    <a class="navbar-brand" href="/">Brandreth
+                    <a class="navbar-brand" href=@{HomeR}>Brandreth
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="/trips/0">Trips
+                            <a href=@{TripsR 0}>Trips
                         <li>
-                            <a href="/people">People
+                            <a href=@{PeopleR}>People
                         <li>
-                            <a href="/stats">Stats
+                            <a href=@{StatsR}>Stats
                         <li>
-                            <a href="/leaderboard/trips">Leaderboard
+                            <a href=@{LeaderboardTripsR}>Leaderboard
                     <form class="navbar-form navbar-right" role="search">
                         <div class="form-group">
                             <input id="search-field" type="text" class="form-control" placeholder="Search" value="">

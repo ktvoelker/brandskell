@@ -3,10 +3,10 @@
 $forall (pid,name,mnick,pstart,pend,entry) <- entries
     $maybe nick <- mnick
         <h3>
-            <a href="/person/#{pid}">#{name} - #{nick}
+            <a href=@{PersonR pid}>#{name} - #{nick}
     $nothing
         <h3>
-            <a href="/person/#{pid}">#{name}
+            <a href=@{PersonR pid}>#{name}
     <p>
         <i>#{showDate pstart} to #{showDate pend}
     <p>#{entry}
