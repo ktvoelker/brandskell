@@ -33,6 +33,7 @@ library
                      Handler.ModReasons
                      Handler.ModSources
                      Handler.NewTrip
+                     Handler.EditTrip
                      Handler.NewEntry
                      Handler.EditEntry
                      Handler.NewPerson

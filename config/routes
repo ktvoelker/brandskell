@@ -25,6 +25,7 @@
 /modsources/#Int DelSourceR GET
 
 /newtrip NewTripR GET POST
+/edittrip/#Int EditTripR GET POST
 
 /newentry/#Int NewEntryR GET POST
 /editentry/#Int EditEntryR GET POST

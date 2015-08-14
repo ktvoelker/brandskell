@@ -39,6 +39,7 @@ import Handler.Search
 import Handler.ModReasons
 import Handler.ModSources
 import Handler.NewTrip
+import Handler.EditTrip
 import Handler.NewEntry
 import Handler.EditEntry
 import Handler.NewPerson

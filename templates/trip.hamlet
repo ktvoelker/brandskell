@@ -1,3 +1,5 @@
+<a href=@{EditTripR tripId}>
+    <button .btn .btn-default>Edit Trip
 <a href=@{NewEntryR tripId}>
     <button .btn .btn-default>Add Entry
 <h1>#{reason}
