@@ -25,7 +25,7 @@ getPeopleR = do
                 |]
             return people
     case dbres of
-        Left err -> error $ show err -- TODO
+        Left err -> error $ show err
         Right people ->
                 defaultLayout $ do
                     let groups = groupify 4 people

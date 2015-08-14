@@ -53,7 +53,7 @@ getTripR tripId = do
                         |] tripId
                     return ((r,Just st,Just en), entries)
     case dbres of
-        Left err -> error $ show err -- TODO
+        Left err -> error $ show err
         Right ((reason,mstart,mend),entries) ->
             defaultLayout $ do
                 case (mstart,mend) of

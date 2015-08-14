@@ -37,7 +37,7 @@ getTripsR page
                     |]
                 return (trips, num_trips)
         case dbres of
-            Left err -> error $ show err -- TODO
+            Left err -> error $ show err
             Right (trips,num_trips) ->
                     defaultLayout $ do
                         let num_pages = if num_trips `rem` pageSize == 0

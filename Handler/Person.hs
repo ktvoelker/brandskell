@@ -37,7 +37,7 @@ getPersonR personId = do
                 |] personId
             return (person, entries)
     case dbres of
-        Left err -> error $ show err -- TODO
+        Left err -> error $ show err
         Right ((name,mnick,muser,source),entries) ->
             defaultLayout $ do
                 setTitle $ toHtml (show name) ++ " | Brandreth Guestbook"

@@ -35,7 +35,7 @@ getLeaderboardTripsR = do
                 |]
             return (assignRank people)
     case dbres of
-        Left err -> error $ show err -- TODO
+        Left err -> error $ show err
         Right people ->
             defaultLayout $ do
                 setTitle "Leaderboard by Trip Count | Brandreth Guestbook"
@@ -58,7 +58,7 @@ getLeaderboardDurationR = do
                 |]
             return (assignRank people)
     case dbres of
-        Left err -> error $ show err -- TODO
+        Left err -> error $ show err
         Right people ->
             defaultLayout $ do
                 setTitle "Leaderboard by Trip Duration | Brandreth Guestbook"

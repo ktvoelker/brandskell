@@ -50,7 +50,7 @@ getSearchR query = do
                 |] sanitizedQuery
             return results
     case dbres of
-        Left err -> error $ show err -- TODO
+        Left err -> error $ show err
         Right results ->
             defaultLayout $ do
                 setTitle $ "Search Results | Brandreth Guestbook"
