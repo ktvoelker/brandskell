@@ -17,3 +17,6 @@
 
 /leaderboard/trips LeaderboardTripsR GET
 /leaderboard/duration LeaderboardDurationR GET
+
+/modreasons ModReasonsR GET POST
+/modreasons/#Int DelReasonR GET

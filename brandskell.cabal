@@ -29,6 +29,7 @@ library
                      Handler.Person
                      Handler.Stats
                      Handler.Leaderboard
+                     Handler.ModReasons
                      Utils.Database
                      Utils.Days
 

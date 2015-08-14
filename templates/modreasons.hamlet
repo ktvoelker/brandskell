@@ -1,0 +1,16 @@
+<h2>Manage Trip Reasons
+
+<p>
+    <i>Note: you can only delete reasons that don't have any trips using them.
+
+<form .form-inline method=post action=@{ModReasonsR} enctype=#{enctype}>
+    <div .form-group>
+        ^{widget}
+
+<table .table .table-striped">
+    $forall (rid,reason) <- reasons
+        <tr>
+            <td>
+                <a href=@{DelReasonR rid}>
+                    <button .btn .btn-warning>Delete
+            <td>#{reason}
