@@ -31,6 +31,9 @@ library
                      Handler.Leaderboard
                      Handler.ModReasons
                      Handler.ModSources
+                     Handler.NewTrip
+                     Handler.NewEntry
+                     Handler.NewPerson
                      Utils.Database
                      Utils.Days
 

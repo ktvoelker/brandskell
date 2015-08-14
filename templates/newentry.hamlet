@@ -1,0 +1,13 @@
+<a href=@{TripR tripId}>
+    <button .btn .btn-danger>Cancel
+
+<a href=@{NewPersonR tripId}>
+    <button .btn>New Person
+
+<i>
+    <p>Clicking "New Person" will abandon any work here
+
+<h2>Add an entry to this trip
+
+<form .form-horizontal method=post action=@{NewEntryR tripId} enctype=#{enctype}>
+        ^{widget}

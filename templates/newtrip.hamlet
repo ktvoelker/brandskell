@@ -1,0 +1,7 @@
+<a href=@{ModReasonsR}>
+    <button .btn>Manage Trip Reasons
+
+<h2>Log a New Trip
+
+<form method=post action=@{NewTripR} enctype=#{enctype}>
+    ^{widget}

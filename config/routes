@@ -23,3 +23,9 @@
 
 /modsources ModSourcesR GET POST
 /modsources/#Int DelSourceR GET
+
+/newtrip NewTripR GET POST
+
+/newentry/#Int NewEntryR GET POST
+
+/newperson/#Int NewPersonR GET POST

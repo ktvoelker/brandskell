@@ -1,0 +1,13 @@
+<a href=@{NewEntryR tripId}>
+    <button .btn .btn-danger>Cancel
+
+<a href=@{ModSourcesR}>
+    <button .btn>Manage Sources
+
+<i>
+    <p>Clicking "Manage Sources" will abandon any work here
+
+<h2>Add a new person to the website
+
+<form .form-horizontal method=post action=@{NewPersonR tripId} enctype=#{enctype}>
+        ^{widget}
