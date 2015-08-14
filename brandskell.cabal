@@ -30,6 +30,7 @@ library
                      Handler.Stats
                      Handler.Leaderboard
                      Handler.ModReasons
+                     Handler.ModSources
                      Utils.Database
                      Utils.Days
 

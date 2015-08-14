@@ -1,0 +1,16 @@
+<h2>Manage People's Sources
+
+<p>
+    <i>Note: you can only delete sources that don't have any people using them.
+
+<form .form-inline method=post action=@{ModSourcesR} enctype=#{enctype}>
+    <div .form-group>
+        ^{widget}
+
+<table .table .table-striped">
+    $forall (sid,source) <- sources
+        <tr>
+            <td>
+                <a href=@{DelSourceR sid}>
+                    <button .btn .btn-warning>Delete
+            <td>#{source}

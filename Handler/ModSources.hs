@@ -1,5 +1,5 @@
 {-# LANGUAGE QuasiQuotes, ScopedTypeVariables #-}
-module Handler.ModReasons where
+module Handler.ModSources where
 
 import Import
 import Utils.Database
@@ -8,67 +8,67 @@ import Yesod.Form.Bootstrap3
 import qualified Hasql as H
 import qualified Data.Text as T
 
-getModReasonsR :: Handler Html
-getModReasonsR = do
+getModSourcesR :: Handler Html
+getModSourcesR = do
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
-            (reasons :: [(Int,T.Text)]) <- H.listEx $ [H.stmt|
+            (sources :: [(Int,T.Text)]) <- H.listEx $ [H.stmt|
                     SELECT *
-                    FROM reasons
-                    ORDER BY reason ASC
+                    FROM sources
+                    ORDER BY source ASC
                 |]
-            return reasons
+            return sources
     case dbres of
         Left err -> error $ show err
-        Right reasons -> do
-            (widget, enctype) <- generateFormPost newReasonForm
+        Right sources -> do
+            (widget, enctype) <- generateFormPost newSourceForm
             defaultLayout $ do
-                setTitle $ "Reasons | Brandreth Guestbook"
-                $(widgetFile "modreasons")
+                setTitle $ "Sources | Brandreth Guestbook"
+                $(widgetFile "modsources")
 
-data Reason = Reason T.Text
+data PSource = PSource T.Text
 
-newReasonAForm :: AForm Handler Reason
-newReasonAForm = Reason <$> areq textField "New Reason" Nothing
+newSourceAForm :: AForm Handler PSource
+newSourceAForm = PSource <$> areq textField "New Source" Nothing
                         <* bootstrapSubmit ("Submit" :: BootstrapSubmit Text)
 
-newReasonForm :: Html -> MForm Handler (FormResult Reason, Widget)
-newReasonForm = renderBootstrap3 BootstrapBasicForm newReasonAForm
+newSourceForm :: Html -> MForm Handler (FormResult PSource, Widget)
+newSourceForm = renderBootstrap3 BootstrapBasicForm newSourceAForm
 
-postModReasonsR :: Handler Html
-postModReasonsR = do
-    ((result, _), _) <- runFormPost newReasonForm
+postModSourcesR :: Handler Html
+postModSourcesR = do
+    ((result, _), _) <- runFormPost newSourceForm
     case result of
-        FormSuccess (Reason r) -> do
+        FormSuccess (PSource s) -> do
             dbres <- liftIO $ do
                 conn <- getDbConn
                 H.session conn $ H.tx Nothing $
                     H.unitEx $ [H.stmt|
-                            INSERT INTO "reasons" (reason)
+                            INSERT INTO "sources" (source)
                             VALUES (?)
-                        |] r
+                        |] s
             case dbres of
                 Left err -> error $ show err
-                Right _ -> getModReasonsR
+                Right _ -> getModSourcesR
         FormMissing -> error $ "No form data sent!"
         FormFailure err -> error $ show err
 
-getDelReasonR :: Int -> Handler Html
-getDelReasonR rid = do
+getDelSourceR :: Int -> Handler Html
+getDelSourceR rid = do
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
             Identity (num_trips :: Int) <- H.singleEx $ [H.stmt|
                     SELECT count(*)
-                    FROM trips
-                    WHERE trips.reason_id = ?
+                    FROM people
+                    WHERE people.source = ?
                 |] rid
             if num_trips /= 0
                 then return False
                 else do
                     H.unitEx $ [H.stmt|
-                            DELETE FROM reasons
+                            DELETE FROM sources
                             WHERE id = ?
                         |] rid
                     return True
@@ -76,6 +76,6 @@ getDelReasonR rid = do
         Left err -> error $ show err
         Right False -> defaultLayout $
             [whamlet|
-                <h3>There are still trips using that reason!
+                <h3>There are still people using that source!
             |]
-        Right True -> getModReasonsR
+        Right True -> getModSourcesR

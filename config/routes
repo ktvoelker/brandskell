@@ -20,3 +20,6 @@
 
 /modreasons ModReasonsR GET POST
 /modreasons/#Int DelReasonR GET
+
+/modsources ModSourcesR GET POST
+/modsources/#Int DelSourceR GET
