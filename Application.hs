@@ -40,6 +40,7 @@ import Handler.ModReasons
 import Handler.ModSources
 import Handler.NewTrip
 import Handler.NewEntry
+import Handler.EditEntry
 import Handler.NewPerson
 
 -- This line actually creates our YesodDispatch instance. It is the second half

@@ -2,7 +2,7 @@
     <button .btn .btn-danger>Cancel
 
 <a href=@{NewPersonR tripId}>
-    <button .btn>New Person
+    <button .btn .btn-default>New Person
 
 <i>
     <p>Clicking "New Person" will abandon any work here

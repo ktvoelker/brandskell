@@ -50,7 +50,7 @@ postModReasonsR = do
                         |] r
             case dbres of
                 Left err -> error $ show err
-                Right _ -> getModReasonsR
+                Right _ -> redirect getModReasonsR
         FormMissing -> error $ "No form data sent!"
         FormFailure err -> error $ show err
 
@@ -78,4 +78,4 @@ getDelReasonR rid = do
             [whamlet|
                 <h3>There are still trips using that reason!
             |]
-        Right True -> getModReasonsR
+        Right True -> redirect getModReasonsR

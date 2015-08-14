@@ -1,5 +1,5 @@
 <a href=@{NewEntryR tripId}>
-    <button .btn>Add Entry
+    <button .btn .btn-default>Add Entry
 <h1>#{reason}
 $case entries
     $of []
@@ -8,7 +8,7 @@ $case entries
         $maybe start <- mstart
             $maybe end <- mend
                 <h2>#{showDate start} to #{showDate end}
-        $forall (pid,name,mnick,pstart,pend,entry) <- entries
+        $forall (pid,eid,name,mnick,pstart,pend,entry) <- entries
             $maybe nick <- mnick
                 <h3>
                     <a href=@{PersonR pid}>#{name} - #{nick}
@@ -18,3 +18,5 @@ $case entries
             <p>
                 <i>#{showDate pstart} to #{showDate pend}
             <p>#{entry}
+            <a href=@{EditEntryR eid}>
+                <button .btn .btn-default>Edit Entry

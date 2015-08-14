@@ -2,7 +2,7 @@
     <button .btn .btn-danger>Cancel
 
 <a href=@{ModSourcesR}>
-    <button .btn>Manage Sources
+    <button .btn .btn-default>Manage Sources
 
 <i>
     <p>Clicking "Manage Sources" will abandon any work here

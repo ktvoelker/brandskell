@@ -27,6 +27,7 @@
 /newtrip NewTripR GET POST
 
 /newentry/#Int NewEntryR GET POST
+/editentry/#Int EditEntryR GET POST
 
 /newperson/#Int NewPersonR GET POST
 

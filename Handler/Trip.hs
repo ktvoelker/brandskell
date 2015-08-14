@@ -38,9 +38,10 @@ getTripR tripId = do
                             WHERE trips.id = ?
                             GROUP BY reason
                         |] tripId
-                    (entries :: [(Int,T.Text,Maybe T.Text,Day,Day,T.Text)])
+                    (entries :: [(Int,Int,T.Text,Maybe T.Text,Day,Day,T.Text)])
                         <- H.listEx $ [H.stmt|
                             SELECT people.id
+                                 , entries.id
                                  , people.name
                                  , people.nickname
                                  , entries.date_start
