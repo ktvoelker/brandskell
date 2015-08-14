@@ -122,9 +122,12 @@ getStatsR = do
                     INNER JOIN people ON (entries.person_id = people.id)
                     INNER JOIN sources ON (people.source = sources.id)
                 |]
+            let (reasons,monthCounts) = collapseList2
+                            $ map (\(r,m) -> (r,round m :: Int)) monthlyReasons
             return ( collapseLists [trips,uniqTrips,noobTrips,days]
-                   , collapseList2 (map (\(r,m) -> (r,showMonth $ round m)) monthlyReasons)
-                   , collapseList2 (map (\(y,s) -> (round y :: Int,s)) yearlySources)
+                   , (reasons, map (\(m,cs) -> (showMonth m,cs)) monthCounts)
+                   , collapseList2 (map (\(y,s) -> (round y :: Int,s))
+                                                yearlySources)
                    )
     case dbres of
         Left err -> error $ show err
