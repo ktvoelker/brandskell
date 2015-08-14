@@ -6,6 +6,7 @@ import Text.Jasmine                (minifym)
 import Yesod.Core.Types            (Logger)
 import Yesod.Default.Util          (addStaticContentExternal)
 import qualified Yesod.Core.Unsafe as Unsafe
+import qualified Data.Text as T
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -63,6 +64,7 @@ instance Yesod App where
             addScript $ StaticR js_highcharts_more_js
             addScript $ StaticR js_data_js
             addScript $ StaticR js_exporting_js
+            addScript $ StaticR js_searchbtn_js
             $(widgetFile "default-layout")
         withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
 

@@ -35,6 +35,7 @@ import Handler.People
 import Handler.Person
 import Handler.Stats
 import Handler.Leaderboard
+import Handler.Search
 import Handler.ModReasons
 import Handler.ModSources
 import Handler.NewTrip

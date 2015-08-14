@@ -22,9 +22,6 @@ $newline never
 
         <script>
             document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
-        <script src="http://code.highcharts.com/highcharts-more.js">
-        <script src="http://code.highcharts.com/modules/data.js">
-        <script src="http://code.highcharts.com/modules/exporting.js">
     <body>
         <!-- navbar -->
         <nav class="navbar navbar-default" role="navigation">

@@ -29,3 +29,5 @@
 /newentry/#Int NewEntryR GET POST
 
 /newperson/#Int NewPersonR GET POST
+
+/search/#T.Text SearchR GET
