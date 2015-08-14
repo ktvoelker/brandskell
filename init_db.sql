@@ -11,7 +11,7 @@ DROP TYPE IF EXISTS img_type;
 
 CREATE TABLE "reasons" (
     id     SERIAL       NOT NULL,
-    reason VARCHAR(160) NOT NULL,
+    reason VARCHAR(160) UNIQUE NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -24,7 +24,7 @@ CREATE TABLE "trips" (
 
 CREATE TABLE "sources" (
     id     SERIAL      NOT NULL,
-    source VARCHAR(25) NOT NULL,
+    source VARCHAR(25) UNIQUE NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -32,7 +32,7 @@ CREATE TABLE "people" (
     id           SERIAL       NOT NULL,
     name         VARCHAR(160) NOT NULL,
     nickname     VARCHAR(25),
-    csh_username VARCHAR(25),
+    csh_username VARCHAR(25)  UNIQUE,
     source       INTEGER      NOT NULL,
     admin        BOOLEAN      NOT NULL,
     PRIMARY KEY (id)
