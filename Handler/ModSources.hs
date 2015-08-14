@@ -50,7 +50,7 @@ postModSourcesR = do
                         |] s
             case dbres of
                 Left err -> error $ show err
-                Right _ -> redirect getModSourcesR
+                Right _ -> redirect ModSourcesR
         FormMissing -> error $ "No form data sent!"
         FormFailure err -> error $ show err
 
@@ -78,4 +78,4 @@ getDelSourceR rid = do
             [whamlet|
                 <h3>There are still people using that source!
             |]
-        Right True -> redirect getModSourcesR
+        Right True -> redirect ModSourcesR

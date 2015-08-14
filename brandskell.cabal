@@ -36,6 +36,7 @@ library
                      Handler.NewEntry
                      Handler.EditEntry
                      Handler.NewPerson
+                     Handler.EditPerson
                      Utils.Database
                      Utils.Days
 

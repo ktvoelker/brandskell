@@ -1,0 +1,13 @@
+<a href=@{PersonR personId}>
+    <button .btn .btn-danger>Cancel
+
+<a href=@{ModSourcesR}>
+    <button .btn .btn-default>Manage Sources
+
+<i>
+    <p>Clicking "Manage Sources" will abandon any work here
+
+<h2>Edit an existing person
+
+<form .form-horizontal method=post action=@{EditPersonR personId} enctype=#{enctype}>
+        ^{widget}

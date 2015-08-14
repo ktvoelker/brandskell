@@ -1,3 +1,6 @@
+<a href=@{EditPersonR personId}>
+    <button .btn .btn-default>Edit Person
+
 $maybe nick <- mnick
     <h1>#{name} - #{nick}
 $nothing

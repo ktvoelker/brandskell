@@ -27,13 +27,13 @@ getNewPersonR tripId = do
                 setTitle $ "New Person | Brandreth Guestbook"
                 $(widgetFile "newperson")
 
-data Person = Person T.Text T.Text T.Text Int
+data Person = Person T.Text (Maybe T.Text) (Maybe T.Text) Int
 
 newPersonAForm :: [(Int,T.Text)] -> AForm Handler Person
 newPersonAForm sources =
         Person <$> areq textField "Name" Nothing
-               <*> areq textField "Nickname" Nothing
-               <*> areq textField "CSH Username" Nothing
+               <*> aopt textField "Nickname" Nothing
+               <*> aopt textField "CSH Username" Nothing
                <*> areq (selectFieldList ssources) "Source" Nothing
                <*  bootstrapSubmit ("Submit" :: BootstrapSubmit Text)
     where ssources = map (\(x,y) -> (y,x)) sources
@@ -44,10 +44,6 @@ newPersonForm :: [(Int,T.Text)]
 newPersonForm sources = renderBootstrap3
                 (BootstrapHorizontalForm (ColSm 0)(ColSm 2)(ColSm 0)(ColSm 10))
                 $ newPersonAForm sources
-
-toM :: T.Text -> Maybe T.Text
-toM "" = Nothing
-toM t = Just t
 
 postNewPersonR :: Int -> Handler Html
 postNewPersonR tripId = do
@@ -77,7 +73,7 @@ postNewPersonR tripId = do
                                         , admin
                                         )
                                     VALUES (?,?,?,?,false)
-                                |] na (toM ni) (toM us) so
+                                |] na ni us so
                     case dbres' of
                         Left err -> error $ show err
                         Right _ -> redirect $ NewEntryR tripId

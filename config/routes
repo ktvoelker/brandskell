@@ -30,5 +30,6 @@
 /editentry/#Int EditEntryR GET POST
 
 /newperson/#Int NewPersonR GET POST
+/editperson/#Int EditPersonR GET POST
 
 /search/#T.Text SearchR GET
