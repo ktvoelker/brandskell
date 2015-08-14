@@ -36,6 +36,106 @@ $(function () {
         }, {
             name: 'First Time Visitors per Year',
             data: #{toJSON noobTrips}
+        }, {
+            name: 'Days Spent at Brandreth per Year',
+            data: #{toJSON days}
         }]
+    });
+});
+$(function () {
+    $('#days').highcharts({
+        title: {
+            text: 'Cumulative People Days Spent at Brandreth per Year',
+            x: -20 //center
+        },
+        xAxis: {
+            categories: #{toJSON years}
+        },
+        yAxis: {
+            title: {
+                text: 'Number of Days'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }],
+            min: 0
+        },
+        tooltip: {
+            valueSuffix: ' People Days'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'People Days',
+            data: #{toJSON days}
+        }]
+    });
+});
+$(function () {
+    $('#monthlyReasons').highcharts({
+        data: {
+            table: 'monthlyRdat',
+            startRow: 0,
+            endRow: #{toJSON $ length monthCounts},
+            endColumn: #{toJSON $ length reasons}
+        },
+
+        chart: {
+            polar: true,
+            type: 'column'
+        },
+
+        title: {
+            text: 'Trip Reasons Per Month'
+        },
+
+        pane: {
+            size: '85%'
+        },
+
+        legend: {
+            align: 'right',
+            verticalAlign: 'top',
+            y: 100,
+            layout: 'vertical'
+        },
+
+        xAxis: {
+            tickmarkPlacement: 'on'
+        },
+
+        yAxis: {
+            min: 0,
+            endOnTick: false,
+            showLastLabel: true,
+            title: {
+                text: '# of Trips'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value + ' Trips';
+                }
+            },
+            reversedStacks: false
+        },
+
+        tooltip: {
+            valueSuffix: 'Trips'
+        },
+
+        plotOptions: {
+            series: {
+                stacking: 'normal',
+                shadow: false,
+                groupPadding: 0,
+                pointPlacement: 'on'
+            }
+        }
     });
 });

@@ -60,6 +60,9 @@ instance Yesod App where
             addStylesheet $ StaticR css_bootstrap_css
             addScript $ StaticR js_jquery_min_js
             addScript $ StaticR js_highcharts_js
+            addScript $ StaticR js_highcharts_more_js
+            addScript $ StaticR js_data_js
+            addScript $ StaticR js_exporting_js
             $(widgetFile "default-layout")
         withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
 
