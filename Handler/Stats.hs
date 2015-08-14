@@ -8,40 +8,37 @@ import qualified Hasql as H
 import qualified Data.List as L
 import qualified Data.Text as T
 
-mapInsert :: Eq a => [(a,b)] -> a -> b -> [(a,b)]
-mapInsert [] _ _ = []
-mapInsert ((y,x):lst) y' x'
-    | y == y' = (y',x'):lst
-    | otherwise = (y,x) : mapInsert lst y' x'
-
 collapseLists :: (Eq a,Ord a,Enum b,Num b) => [[(a,b)]] -> ([a],[[b]])
 collapseLists dat = (years,vals')
     where years = L.sort $ L.nub $ concatMap (map fst) dat
-          ydat = zip years (repeat 0)
-          vals = map (foldr (\(y,x) years' -> mapInsert years' y x) ydat) dat
+          ydat  = zip years (repeat 0)
+          vals  = map (foldr (\(y,x) years' -> mapInsert years' y x) ydat) dat
           vals' = map (map snd) vals
 
--- ([Reason],[(Month,[Int])])
-collapseMonths :: [(T.Text,Int)] -> ([T.Text],[(T.Text,[Int])])
-collapseMonths mrs = (reasons,namedMCounts)
-    where reasons = L.sort $ L.nub $ map fst mrs
-          months  = L.sort $ L.nub $ map snd mrs
-          monthZeros = zip months (repeat $ map (\_ -> 0) reasons)
-          monthCounts = foldr (incNr reasons) monthZeros mrs
-          namedMCounts = map (\(m,cs) -> (showMonth m,cs)) monthCounts
+mapInsert :: Eq a => [(a,b)] -> a -> b -> [(a,b)]
+mapInsert [] _ _ = []
+mapInsert ((y,x):lst) y' x'
+    | y == y'   = (y',x') : lst
+    | otherwise = (y,x) : mapInsert lst y' x'
 
+collapseList2 :: (Eq a,Eq b,Ord a,Ord b) => [(a,b)] -> ([a],[(b,[Int])])
+collapseList2 yss = (years,sCounts)
+    where sources = L.sort $ L.nub $ map snd yss
+          years   = L.sort $ L.nub $ map fst yss
+          sZeros  = zip sources (repeat $ map (\_ -> 0) years)
+          sCounts = foldr (incSeries years) sZeros yss
 
-incNr :: [T.Text] -> (T.Text,Int) -> [(Int,[Int])] -> [(Int,[Int])]
-incNr _ _ [] = [] -- should never happen
-incNr reasons (r,m) ((month,counts):mcs)
-    | month == m = ((month,inc (reasonIndex reasons r) counts) : mcs)
-    | otherwise  = (month,counts) : incNr reasons (r,m) mcs
+incSeries :: (Eq a,Eq b) => [a] -> (a,b) -> [(b,[Int])] -> [(b,[Int])]
+incSeries _ _ [] = [] -- should never happen
+incSeries reasons (r,m) ((month,counts):mcs)
+    | month == m = ((month,inc (listIndex reasons r) counts) : mcs)
+    | otherwise  = (month,counts) : incSeries reasons (r,m) mcs
 
-reasonIndex :: [T.Text] -> T.Text -> Int
-reasonIndex [] _ = 0 -- This should never happen
-reasonIndex (t:ts) t'
+listIndex :: Eq a => [a] -> a -> Int
+listIndex [] _ = 0 -- This should never happen
+listIndex (t:ts) t'
     | t == t'   = 0
-    | otherwise = 1 + reasonIndex ts t'
+    | otherwise = 1 + listIndex ts t'
 
 inc :: Int -> [Int] -> [Int]
 inc _ []     = [] -- this should never happen
@@ -62,6 +59,15 @@ showMonth 10 = "October"
 showMonth 11 = "November"
 showMonth 12 = "December"
 showMonth _  = "Corn Subsidies"
+
+data SourceYears = SourceYears T.Text [Int]
+instance ToJSON SourceYears where
+        toJSON (SourceYears src yrs) =
+            object [ "name" .= src
+                   , "data" .= yrs
+                   ]
+toSY :: (T.Text,[Int]) -> SourceYears
+toSY (t,y) = SourceYears t y
 
 getStatsR :: Handler Html
 getStatsR = do
@@ -109,15 +115,23 @@ getStatsR = do
                     INNER JOIN reasons ON (trips.reason_id = reasons.id)
                     GROUP BY trips
                 |]
+            (yearlySources :: [(Double,T.Text)]) <- H.listEx $ [H.stmt|
+                    SELECT date_part('year', date_start)
+                         , sources.source
+                    FROM entries
+                    INNER JOIN people ON (entries.person_id = people.id)
+                    INNER JOIN sources ON (people.source = sources.id)
+                |]
             return ( collapseLists [trips,uniqTrips,noobTrips,days]
-                   , collapseMonths (map (\(r,m) -> (r,round m)) monthlyReasons)
+                   , collapseList2 (map (\(r,m) -> (r,showMonth $ round m)) monthlyReasons)
+                   , collapseList2 (map (\(y,s) -> (round y :: Int,s)) yearlySources)
                    )
     case dbres of
         Left err -> error $ show err
         Right ( (years,[trips,uniqTrips,noobTrips,days])
               , (reasons,monthCounts)
-              ) -> do
-            liftIO $ print (reasons,monthCounts)
+              , (years1,yearlySources)
+              ) ->
             defaultLayout $ do
                 setTitle $ "Stats | Brandreth Guestbook"
                 $(widgetFile "stats")

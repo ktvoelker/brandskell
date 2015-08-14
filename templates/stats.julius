@@ -139,3 +139,41 @@ $(function () {
         }
     });
 });
+$(function () {
+    $('#sources').highcharts({
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: 'Sources of Visitors per Year by Percentage'
+        },
+        xAxis: {
+            categories: #{toJSON years1},
+            tickmarkPlacement: 'on',
+            title: {
+                enabled: false
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Percent'
+            }
+        },
+        tooltip: {
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} millions)<br/>',
+            shared: true
+        },
+        plotOptions: {
+            area: {
+                stacking: 'percent',
+                lineColor: '#ffffff',
+                lineWidth: 1,
+                marker: {
+                    lineWidth: 1,
+                    lineColor: '#ffffff'
+                }
+            }
+        },
+        series: #{toJSON $ map toSY yearlySources}
+    });
+});
