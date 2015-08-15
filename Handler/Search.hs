@@ -4,6 +4,7 @@ module Handler.Search where
 import Import
 import Utils.Database
 import Utils.Days
+import Utils.Users
 import Data.Char
 
 import qualified Hasql as H
@@ -11,6 +12,9 @@ import qualified Data.Text as T
 
 getSearchR :: T.Text -> Handler Html
 getSearchR query = do
+    req <- waiRequest
+    checkIfAllowed req
+    admin <- liftIO $ isAdmin req
     dbres <- liftIO $ do
         let sanitizedQuery = foldr (\w a -> if a /= ""
                                             then a `T.append` " & " `T.append` w

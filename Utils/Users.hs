@@ -1,29 +1,37 @@
 module Utils.Users where
 
 import Import
-import Network.Wai (Request,requestHeaders)
-import Data.Text.Encoding (decodeUtf8)
+import Utils.Database
 
-getUser :: Request -> Maybe Text
-getUser r = let headers = requestHeaders r
-            in decodeUtf8 `fmap` lookup "X-WEBAUTH-USER" headers
+import qualified Hasql as H
+import qualified Network.Wai as W (Request,requestHeaders)
+import qualified Data.Text.Encoding as E (decodeUtf8)
 
-isAdmin :: Request -> IO Bool
+getUser :: W.Request -> Maybe Text
+getUser r = let headers = W.requestHeaders r
+            in E.decodeUtf8 `fmap` lookup "X-WEBAUTH-USER" headers
+
+isAdmin :: W.Request -> IO Bool
 isAdmin req = do
     let username = getUser req
     conn <- getDbConn
-    dbres <- H.session conn $ H.tx Nothing $ 
-            (admin :: [Bool]) <- H.singleEx $ [H.stmt|
+    dbres <- H.session conn $ H.tx Nothing $
+            H.singleEx $ [H.stmt|
                     SELECT admin
                     FROM people
                     WHERE people.csh_username = ?
                 |] username
     case dbres of
-        Right [True] -> return True
+        Right (Identity True) -> return True
         _ -> return False
 
+checkIfAllowed :: W.Request -> Handler ()
+checkIfAllowed req = do
+    case getUser req of
+        Just _ -> return ()
+        Nothing -> permissionDenied "Looks like you're not logged in."
 
-restrictToAdmins :: Request -> Handler ()
+restrictToAdmins :: W.Request -> Handler ()
 restrictToAdmins req = do
     admin <- liftIO $ isAdmin req
     case admin of

@@ -4,6 +4,7 @@ module Handler.Trips where
 import Import
 import Utils.Database
 import Utils.Days
+import Utils.Users
 
 import qualified Hasql as H
 import qualified Data.Text as T
@@ -15,6 +16,9 @@ getTripsR :: Int -> Handler Html
 getTripsR page
     | page < 0 = getTripsR 0
     | otherwise = do
+        req <- waiRequest
+        checkIfAllowed req
+        admin <- liftIO $ isAdmin req
         dbres <- liftIO $ do
             conn <- getDbConn
             H.session conn $ H.tx Nothing $ do

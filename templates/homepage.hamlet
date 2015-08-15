@@ -1,4 +1,5 @@
 <h1>Getting CSH to fucking &lt;3 nature since 1993
 
-<a href=@{NewTripR}>
-    <button .btn .btn-default>Record a New Trip
+$if admin
+    <a href=@{NewTripR}>
+        <button .btn .btn-default>Record a New Trip

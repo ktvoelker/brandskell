@@ -3,6 +3,7 @@ module Handler.People where
 
 import Import
 import Utils.Database
+import Utils.Users
 
 import qualified Hasql as H
 import qualified Data.Text as T
@@ -13,6 +14,9 @@ groupify n xs = take n xs : groupify n (drop n xs)
 
 getPeopleR :: Handler Html
 getPeopleR = do
+    req <- waiRequest
+    checkIfAllowed req
+    admin <- liftIO $ isAdmin req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

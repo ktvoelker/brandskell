@@ -3,6 +3,7 @@ module Handler.NewEntry where
 
 import Import
 import Utils.Database
+import Utils.Users
 import Yesod.Form.Bootstrap3
 
 import qualified Hasql as H
@@ -10,6 +11,8 @@ import qualified Data.Text as T
 
 getNewEntryR :: Int -> Handler Html
 getNewEntryR tripId = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
@@ -57,6 +60,8 @@ applyNicks ((pid,name,Just nick):people) = (pid,name `T.append` " - "
 
 postNewEntryR :: Int -> Handler Html
 postNewEntryR tripId = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

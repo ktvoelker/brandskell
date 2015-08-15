@@ -3,6 +3,7 @@ module Handler.ModSources where
 
 import Import
 import Utils.Database
+import Utils.Users
 import Yesod.Form.Bootstrap3
 
 import qualified Hasql as H
@@ -10,6 +11,8 @@ import qualified Data.Text as T
 
 getModSourcesR :: Handler Html
 getModSourcesR = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
@@ -38,6 +41,8 @@ newSourceForm = renderBootstrap3 BootstrapBasicForm newSourceAForm
 
 postModSourcesR :: Handler Html
 postModSourcesR = do
+    req <- waiRequest
+    restrictToAdmins req
     ((result, _), _) <- runFormPost newSourceForm
     case result of
         FormSuccess (PSource s) -> do
@@ -56,6 +61,8 @@ postModSourcesR = do
 
 getDelSourceR :: Int -> Handler Html
 getDelSourceR rid = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

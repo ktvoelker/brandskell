@@ -3,6 +3,7 @@ module Handler.NewTrip where
 
 import Import
 import Utils.Database
+import Utils.Users
 import Yesod.Form.Bootstrap3
 
 import qualified Hasql as H
@@ -10,6 +11,8 @@ import qualified Data.Text as T
 
 getNewTripR :: Handler Html
 getNewTripR = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
@@ -42,6 +45,8 @@ newTripForm reasons = renderBootstrap3 BootstrapBasicForm $ newTripAForm reasons
 
 postNewTripR :: Handler Html
 postNewTripR = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

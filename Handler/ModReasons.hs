@@ -3,6 +3,7 @@ module Handler.ModReasons where
 
 import Import
 import Utils.Database
+import Utils.Users
 import Yesod.Form.Bootstrap3
 
 import qualified Hasql as H
@@ -10,6 +11,8 @@ import qualified Data.Text as T
 
 getModReasonsR :: Handler Html
 getModReasonsR = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
@@ -38,6 +41,8 @@ newReasonForm = renderBootstrap3 BootstrapBasicForm newReasonAForm
 
 postModReasonsR :: Handler Html
 postModReasonsR = do
+    req <- waiRequest
+    restrictToAdmins req
     ((result, _), _) <- runFormPost newReasonForm
     case result of
         FormSuccess (Reason r) -> do
@@ -56,6 +61,8 @@ postModReasonsR = do
 
 getDelReasonR :: Int -> Handler Html
 getDelReasonR rid = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

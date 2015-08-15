@@ -4,12 +4,16 @@ module Handler.Trip where
 import Import
 import Utils.Database
 import Utils.Days
+import Utils.Users
 
 import qualified Hasql as H
 import qualified Data.Text as T
 
 getTripR :: Int -> Handler Html
 getTripR tripId = do
+    req <- waiRequest
+    checkIfAllowed req
+    admin <- liftIO $ isAdmin req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

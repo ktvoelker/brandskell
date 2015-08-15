@@ -3,6 +3,7 @@ module Handler.EditTrip where
 
 import Import
 import Utils.Database
+import Utils.Users
 import Yesod.Form.Bootstrap3
 
 import qualified Hasql as H
@@ -10,6 +11,8 @@ import qualified Data.Text as T
 
 getEditTripR :: Int -> Handler Html
 getEditTripR tripId = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
@@ -50,6 +53,8 @@ editTripForm reasons reason =
 
 postEditTripR :: Int -> Handler Html
 postEditTripR tripId = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

@@ -3,6 +3,7 @@ module Handler.Leaderboard where
 
 import Import
 import Utils.Database
+import Utils.Users
 
 import qualified Hasql as H
 import qualified Data.Text as T
@@ -20,6 +21,9 @@ assignRankHelper rank ((a,b,c,n):xs) =
 
 getLeaderboardTripsR :: Handler Html
 getLeaderboardTripsR = do
+    req <- waiRequest
+    checkIfAllowed req
+    admin <- liftIO $ isAdmin req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
@@ -43,6 +47,9 @@ getLeaderboardTripsR = do
 
 getLeaderboardDurationR :: Handler Html
 getLeaderboardDurationR = do
+    req <- waiRequest
+    checkIfAllowed req
+    admin <- liftIO $ isAdmin req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

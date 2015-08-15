@@ -3,6 +3,7 @@ module Handler.NewPerson where
 
 import Import
 import Utils.Database
+import Utils.Users
 import Yesod.Form.Bootstrap3
 
 import qualified Hasql as H
@@ -10,6 +11,8 @@ import qualified Data.Text as T
 
 getNewPersonR :: Int -> Handler Html
 getNewPersonR tripId = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
@@ -47,6 +50,8 @@ newPersonForm sources = renderBootstrap3
 
 postNewPersonR :: Int -> Handler Html
 postNewPersonR tripId = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

@@ -3,6 +3,7 @@ module Handler.EditEntry where
 
 import Import
 import Utils.Database
+import Utils.Users
 import Yesod.Form.Bootstrap3
 
 import qualified Hasql as H
@@ -10,6 +11,8 @@ import qualified Data.Text as T
 
 getEditEntryR :: Int -> Handler Html
 getEditEntryR entryId = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
@@ -68,6 +71,8 @@ applyNicks ((pid,name,Just nick):people) = (pid,name `T.append` " - "
 
 postEditEntryR :: Int -> Handler Html
 postEditEntryR entryId = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

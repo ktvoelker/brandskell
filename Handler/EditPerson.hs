@@ -3,6 +3,7 @@ module Handler.EditPerson where
 
 import Import
 import Utils.Database
+import Utils.Users
 import Yesod.Form.Bootstrap3
 
 import qualified Hasql as H
@@ -10,6 +11,8 @@ import qualified Data.Text as T
 
 getEditPersonR :: Int -> Handler Html
 getEditPersonR personId = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
@@ -62,6 +65,8 @@ editPersonForm sources person = renderBootstrap3
 
 postEditPersonR :: Int -> Handler Html
 postEditPersonR pid = do
+    req <- waiRequest
+    restrictToAdmins req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
