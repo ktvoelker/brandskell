@@ -18,7 +18,6 @@ getTripsR page
     | otherwise = do
         req <- waiRequest
         checkIfAllowed req
-        admin <- liftIO $ isAdmin req
         dbres <- liftIO $ do
             conn <- getDbConn
             H.session conn $ H.tx Nothing $ do
@@ -48,6 +47,6 @@ getTripsR page
                                             then num_trips `div` pageSize - 2
                                             else num_trips `div` pageSize - 1
                             pages = filter (>= 0) $ filter (<= num_pages)
-                                      [(page - 2)..(page + 2)]
+                                      [(page - 5)..(page + 5)]
                         setTitle "Trips | Brandreth Guestbook"
                         $(widgetFile "trips")

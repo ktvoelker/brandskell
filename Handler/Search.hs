@@ -14,7 +14,6 @@ getSearchR :: T.Text -> Handler Html
 getSearchR query = do
     req <- waiRequest
     checkIfAllowed req
-    admin <- liftIO $ isAdmin req
     dbres <- liftIO $ do
         let sanitizedQuery = foldr (\w a -> if a /= ""
                                             then a `T.append` " & " `T.append` w

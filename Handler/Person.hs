@@ -38,11 +38,12 @@ getPersonR personId = do
                     INNER JOIN trips ON (entries.trip_id = trips.id)
                     INNER JOIN reasons ON (trips.reason_id = reasons.id)
                     WHERE entries.person_id = ?
+                    ORDER BY date_start DESC
                 |] personId
             return (person, entries)
     case dbres of
         Left err -> error $ show err
         Right ((name,mnick,muser,source),entries) ->
             defaultLayout $ do
-                setTitle $ toHtml (show name) ++ " | Brandreth Guestbook"
+                setTitle $ toHtml (T.unpack name) ++ " | Brandreth Guestbook"
                 $(widgetFile "person")

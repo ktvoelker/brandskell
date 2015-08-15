@@ -18,9 +18,9 @@ $case entries
             $nothing
                 <h3>
                     <a href=@{PersonR pid}>#{name}
-            <p>
+            <h4>
                 <i>#{showDate pstart} to #{showDate pend}
-            <p>#{entry}
+            <blockquote>#{entry}
             $if admin
                 <a href=@{EditEntryR eid}>
                     <button .btn .btn-default>Edit Entry

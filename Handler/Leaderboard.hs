@@ -23,7 +23,6 @@ getLeaderboardTripsR :: Handler Html
 getLeaderboardTripsR = do
     req <- waiRequest
     checkIfAllowed req
-    admin <- liftIO $ isAdmin req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
@@ -49,7 +48,6 @@ getLeaderboardDurationR :: Handler Html
 getLeaderboardDurationR = do
     req <- waiRequest
     checkIfAllowed req
-    admin <- liftIO $ isAdmin req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

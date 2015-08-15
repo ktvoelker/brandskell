@@ -16,7 +16,6 @@ getPeopleR :: Handler Html
 getPeopleR = do
     req <- waiRequest
     checkIfAllowed req
-    admin <- liftIO $ isAdmin req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do
