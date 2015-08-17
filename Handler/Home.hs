@@ -5,6 +5,7 @@ import Import
 import Utils.Database
 import Utils.Days
 import Utils.Users
+import Data.Time
 
 import qualified Hasql as H
 import qualified Data.Text as T
@@ -43,7 +44,8 @@ getHomeR = do
                     return ((pid,name,mnick),lastEntry)
             case dbres of
                 Left err -> error $ show err
-                Right ((pid,name,mnick),lastEntry) ->
+                Right ((pid,name,mnick),lastEntry) -> do
+                    today <- liftIO $ getCurrentTime >>= return . utctDay
                     defaultLayout $ do
                         setTitle $ "Brandreth Guestbook"
                         $(widgetFile "homepage-user")
