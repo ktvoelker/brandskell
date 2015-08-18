@@ -27,9 +27,10 @@ getPersonR personId = do
                     INNER JOIN sources ON (sources.id = people.source)
                     WHERE people.id = ?
                 |] personId
-            (entries :: [(Int,T.Text,Day,Day,T.Text)])
+            (entries :: [(Int,Int,T.Text,Day,Day,T.Text)])
                 <- H.listEx $ [H.stmt|
                     SELECT entries.trip_id
+                         , entries.id
                          , reasons.reason
                          , entries.date_start
                          , entries.date_end
@@ -40,7 +41,16 @@ getPersonR personId = do
                     WHERE entries.person_id = ?
                     ORDER BY date_start DESC
                 |] personId
-            return (person, entries)
+            (entryPics :: [[(Int,T.Text)]])
+                <- forM entries (\(_,entryId,_,_,_,_) ->
+                    H.listEx $ [H.stmt|
+                            SELECT id
+                                 , ext
+                            FROM images
+                            WHERE entry_id = ? AND img_type = 'doodle'
+                            ORDER BY id ASC
+                        |] entryId)
+            return (person, (zip entries entryPics))
     case dbres of
         Left err -> error $ show err
         Right ((name,mnick,muser,source),entries) ->

@@ -12,8 +12,11 @@ $maybe user <- muser
 $nothing
     <h2>#{source}
 
-$forall (tid,reason,start,end,entry) <- entries
+$forall ((tid,_,reason,start,end,entry),doodles) <- entries
     <a href=@{TripR tid}>
         <h3>#{reason}
         <h4>#{showDate start} - #{showDate end}
     <blockquote>#{entry}
+    $forall (id,ext) <- doodles
+        <a href="/static/images/#{id}.#{ext}">
+            <img src="/static/images/#{id}.#{ext}" style="height:400px">

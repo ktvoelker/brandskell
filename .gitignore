@@ -5,3 +5,4 @@ dist
 *.hi
 *.ho
 static/tmp
+static/images
