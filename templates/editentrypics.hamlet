@@ -1,0 +1,22 @@
+<a href=@{TripR tripId}>
+    <button .btn .btn-default>Back
+
+<h2>Pictures of the entry
+$forall (id,_,ext) <- entries
+    <img src="#{imgUrl}#{id}.#{ext}" style="width:100%">
+    <a href=@{DelEntryPicR tripId entryId id}>
+        <btn .btn .btn-danger>Delete
+    <hr>
+
+<form .form-horizontal method=post action=@{EditEntryPicsR tripId entryId} enctype=#{enctype}>
+    ^{widget}
+
+<h2>Doodles
+$forall (id,_,ext) <- doodles
+    <img src="#{imgUrl}#{id}.#{ext}" style="width:100%">
+    <a href=@{DelEntryPicR tripId entryId id}>
+        <btn .btn .btn-danger>Delete
+    <hr>
+
+<form .form-horizontal method=post action=@{EditEntryDoodlesR tripId entryId} enctype=#{enctype'}>
+    ^{widget'}

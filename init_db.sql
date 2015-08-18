@@ -51,13 +51,11 @@ CREATE TABLE "entries" (
     FOREIGN KEY (trip_id) REFERENCES "trips" (id) ON DELETE CASCADE
 );
 
-CREATE TYPE img_type AS ENUM ('entry', 'doodle');
-
 CREATE TABLE "images" (
-    id         SERIAL   NOT NULL,
-    entry_id   INTEGER  NOT NULL,
-    image_path TEXT     NOT NULL,
-    img_type   img_type NOT NULL,
+    id         SERIAL      NOT NULL,
+    entry_id   INTEGER     NOT NULL,
+    img_type   VARCHAR(10) NOT NULL,
+    ext        VARCHAR(25) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (entry_id) REFERENCES "entries" (id) ON DELETE CASCADE
 );

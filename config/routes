@@ -29,6 +29,9 @@
 
 /newentry/#Int NewEntryR GET POST
 /editentry/#Int EditEntryR GET POST
+/editentrypics/#Int/#Int EditEntryPicsR GET POST
+/editentrydoodles/#Int/#Int EditEntryDoodlesR POST
+/delentrypic/#Int/#Int/#Int DelEntryPicR GET
 
 /newperson/#Int NewPersonR GET POST
 /editperson/#Int EditPersonR GET POST

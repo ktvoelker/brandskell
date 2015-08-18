@@ -11,7 +11,7 @@ $case entries
         $maybe start <- mstart
             $maybe end <- mend
                 <h2>#{showDate start} to #{showDate end}
-        $forall (pid,eid,name,mnick,pstart,pend,entry) <- entries
+        $forall ((pid,eid,name,mnick,pstart,pend,entry),doodles) <- entries
             $maybe nick <- mnick
                 <h3>
                     <a href=@{PersonR pid}>#{name} - #{nick}
@@ -21,6 +21,11 @@ $case entries
             <h4>
                 <i>#{showDate pstart} to #{showDate pend}
             <blockquote>#{entry}
+            $forall (id,ext) <- doodles
+                <a href="/static/images/#{id}.#{ext}">
+                    <img src="/static/images/#{id}.#{ext}" style="height:400px">
             $if admin
                 <a href=@{EditEntryR eid}>
                     <button .btn .btn-default>Edit Entry
+                <a href=@{EditEntryPicsR tripId eid}>
+                    <button .btn .btn-default>Edit Pictures

@@ -56,7 +56,16 @@ getTripR tripId = do
                             WHERE entries.trip_id = ?
                             ORDER BY people.name ASC
                         |] tripId
-                    return ((r,Just st,Just en), entries)
+                    (entryPics :: [[(Int,T.Text)]])
+                        <- forM entries (\(_,entryId,_,_,_,_,_) ->
+                            H.listEx $ [H.stmt|
+                                    SELECT id
+                                         , ext
+                                    FROM images
+                                    WHERE entry_id = ? AND img_type = 'doodle'
+                                    ORDER BY id ASC
+                                |] entryId)
+                    return ((r,Just st,Just en), zip entries entryPics)
     case dbres of
         Left err -> error $ show err
         Right ((reason,mstart,mend),entries) ->

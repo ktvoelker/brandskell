@@ -42,6 +42,7 @@ import Handler.NewTrip
 import Handler.EditTrip
 import Handler.NewEntry
 import Handler.EditEntry
+import Handler.EditEntryPics
 import Handler.NewPerson
 import Handler.EditPerson
 

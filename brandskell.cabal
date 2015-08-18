@@ -36,6 +36,7 @@ library
                      Handler.EditTrip
                      Handler.NewEntry
                      Handler.EditEntry
+                     Handler.EditEntryPics
                      Handler.NewPerson
                      Handler.EditPerson
                      Utils.Database
