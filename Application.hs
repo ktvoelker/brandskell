@@ -33,6 +33,7 @@ import Handler.Trips
 import Handler.Trip
 import Handler.People
 import Handler.Person
+import Handler.EntryPics
 import Handler.Stats
 import Handler.Leaderboard
 import Handler.Search

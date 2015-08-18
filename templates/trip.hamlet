@@ -21,9 +21,12 @@ $case entries
             <h4>
                 <i>#{showDate pstart} to #{showDate pend}
             <blockquote>#{entry}
-            $forall (id,ext) <- doodles
-                <a href="/static/images/#{id}.#{ext}">
-                    <img src="/static/images/#{id}.#{ext}" style="height:400px">
+            <div>
+                $forall (id,ext) <- doodles
+                    <a href="/static/images/#{id}.#{ext}">
+                        <img src="/static/images/#{id}.#{ext}" style="height:400px">
+            <a href=@{EntryPicsR eid}>
+                <button .btn .btn-default>View Original Entry
             $if admin
                 <a href=@{EditEntryR eid}>
                     <button .btn .btn-default>Edit Entry

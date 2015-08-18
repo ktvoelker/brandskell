@@ -1,0 +1,7 @@
+$if length images == 0
+    <h2>Whoops, looks like no one took pictures of this entry. Please complain loudly.
+$else
+    $forall (id,ext) <- images
+        <a href="/static/images/#{id}.#{ext}">
+            <img src="/static/images/#{id}.#{ext}" style="width:100%">
+        <hr>

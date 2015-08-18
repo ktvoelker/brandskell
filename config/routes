@@ -13,6 +13,8 @@
 
 /person/#Int PersonR GET
 
+/entrypics/#Int EntryPicsR GET
+
 /stats StatsR GET
 
 /leaderboard/trips LeaderboardTripsR GET

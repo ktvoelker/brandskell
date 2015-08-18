@@ -27,6 +27,7 @@ library
                      Handler.Trip
                      Handler.People
                      Handler.Person
+                     Handler.EntryPics
                      Handler.Stats
                      Handler.Leaderboard
                      Handler.Search
