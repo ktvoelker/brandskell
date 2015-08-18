@@ -59,7 +59,8 @@ instance Yesod App where
 
         pc <- widgetToPageContent $ do
             addStylesheet $ StaticR css_bootstrap_css
-            addScript $ StaticR js_jquery_min_js
+            addScript $ StaticR js_jquery_1_11_3_min_js
+            addScript $ StaticR js_bootstrap_min_js
             addScript $ StaticR js_highcharts_js
             addScript $ StaticR js_highcharts_more_js
             addScript $ StaticR js_data_js
