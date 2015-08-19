@@ -3,15 +3,12 @@ module Handler.EntryPics where
 
 import Import
 import Utils.Database
-import Utils.Users
 
 import qualified Hasql as H
 import qualified Data.Text as T
 
 getEntryPicsR :: Int -> Handler Html
 getEntryPicsR entryId = do
-    req <- waiRequest
-    checkIfAllowed req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

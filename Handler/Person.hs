@@ -12,7 +12,6 @@ import qualified Data.Text as T
 getPersonR :: Int -> Handler Html
 getPersonR personId = do
     req <- waiRequest
-    checkIfAllowed req
     admin <- liftIO $ isAdmin req
     dbres <- liftIO $ do
         conn <- getDbConn

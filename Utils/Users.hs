@@ -25,12 +25,6 @@ isAdmin req = do
         Right (Identity True) -> return True
         _ -> return False
 
-checkIfAllowed :: W.Request -> Handler ()
-checkIfAllowed req = do
-    case getUser req of
-        Just _ -> return ()
-        Nothing -> permissionDenied "Looks like you're not logged in."
-
 restrictToAdmins :: W.Request -> Handler ()
 restrictToAdmins req = do
     admin <- liftIO $ isAdmin req

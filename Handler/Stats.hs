@@ -3,7 +3,6 @@ module Handler.Stats where
 
 import Import
 import Utils.Database
-import Utils.Users
 
 import qualified Hasql as H
 import qualified Data.List as L
@@ -72,8 +71,6 @@ toSY (t,y) = SourceYears t y
 
 getStatsR :: Handler Html
 getStatsR = do
-    req <- waiRequest
-    checkIfAllowed req
     dbres <- liftIO $ do
         conn <- getDbConn
         H.session conn $ H.tx Nothing $ do

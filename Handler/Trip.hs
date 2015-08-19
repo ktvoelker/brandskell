@@ -12,7 +12,6 @@ import qualified Data.Text as T
 getTripR :: Int -> Handler Html
 getTripR tripId = do
     req <- waiRequest
-    checkIfAllowed req
     admin <- liftIO $ isAdmin req
     dbres <- liftIO $ do
         conn <- getDbConn

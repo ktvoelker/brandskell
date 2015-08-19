@@ -13,7 +13,6 @@ import qualified Data.Text as T
 getHomeR :: Handler Html
 getHomeR = do
     req <- waiRequest
-    checkIfAllowed req
     admin <- liftIO $ isAdmin req
     let muser = getUser req
     case muser of
