@@ -16,13 +16,13 @@ isAdmin req = do
     let username = getUser req
     conn <- getDbConn
     dbres <- H.session conn $ H.tx Nothing $
-            H.singleEx $ [H.stmt|
+            H.maybeEx $ [H.stmt|
                     SELECT admin
                     FROM people
                     WHERE people.csh_username = ?
                 |] username
     case dbres of
-        Right (Identity True) -> return True
+        Right (Just (Identity True)) -> return True
         _ -> return False
 
 restrictToAdmins :: W.Request -> Handler ()

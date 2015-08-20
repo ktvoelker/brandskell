@@ -4,24 +4,25 @@ $if admin
     <a href=@{NewTripR}>
         <button .btn .btn-default>Record a New Trip
 
-$maybe nick <- mnick
-    <h2>Looks like you're <a href=@{PersonR pid}>#{name}, aka #{nick}</a>!
-$nothing
-    <h2>Looks like you're <a href=@{PersonR pid}>#{name}</a>!
+$maybe (pid,name,mnick) <- mperson
+    $maybe nick <- mnick
+        <h2>Looks like you're <a href=@{PersonR pid}>#{name}, aka #{nick}</a>!
+    $nothing
+        <h2>Looks like you're <a href=@{PersonR pid}>#{name}</a>!
 
-$maybe (tid,start,end,entry) <- lastEntry
-    <h4>Your last entry was on
-        <a href=@{TripR tid}> #{showDate start} - #{showDate end}
-    <blockquote>#{entry}
+    $maybe (tid,start,end,entry) <- lastEntry
+        <h4>Your last entry was on
+            <a href=@{TripR tid}> #{showDate start} - #{showDate end}
+        <blockquote>#{entry}
 
-    $case diffDays today end
-        $of 0
-            <h4>You just got back from Brandreth today.
-        $of 1
-            <h4>You just got back from Brandreth yesterday.
-        $of x
-            <h4>It has been #{x} days since you were last at Brandreth.
-            $if x > 365
-                <h4>That's over a year! You should probably fix that!
-$nothing
-    <h3>You don't appear to have any trips yet.
+        $case diffDays today end
+            $of 0
+                <h4>You just got back from Brandreth today.
+            $of 1
+                <h4>You just got back from Brandreth yesterday.
+            $of x
+                <h4>It has been #{x} days since you were last at Brandreth.
+                $if x > 365
+                    <h4>That's over a year! You should probably fix that!
+    $nothing
+        <h3>You don't appear to have any trips yet.

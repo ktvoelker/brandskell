@@ -20,30 +20,33 @@ getHomeR = do
             dbres <- liftIO $ do
                 conn <- getDbConn
                 H.session conn $ H.tx Nothing $ do
-                    ((pid,name,mnick) :: (Int,T.Text,Maybe T.Text))
-                        <- H.singleEx $ [H.stmt|
+                    (mperson :: Maybe (Int,T.Text,Maybe T.Text))
+                        <- H.maybeEx $ [H.stmt|
                             SELECT people.id
                                  , people.name
                                  , people.nickname
                             FROM people
                             WHERE people.csh_username = ?
                         |] user
-                    (lastEntry :: Maybe (Int,Day,Day,T.Text))
-                        <- H.maybeEx $ [H.stmt|
-                            SELECT entries.trip_id
-                                 , entries.date_start
-                                 , entries.date_end
-                                 , entries.entry
-                            FROM entries
-                            INNER JOIN trips ON (entries.trip_id = trips.id)
-                            WHERE entries.person_id = ?
-                            ORDER BY date_start DESC
-                            LIMIT 1
-                        |] pid
-                    return ((pid,name,mnick),lastEntry)
+                    case mperson of
+                        Just (pid,name,mnick) -> do
+                            (lastEntry :: Maybe (Int,Day,Day,T.Text))
+                                <- H.maybeEx $ [H.stmt|
+                                    SELECT entries.trip_id
+                                         , entries.date_start
+                                         , entries.date_end
+                                         , entries.entry
+                                    FROM entries
+                                    INNER JOIN trips ON (entries.trip_id = trips.id)
+                                    WHERE entries.person_id = ?
+                                    ORDER BY date_start DESC
+                                    LIMIT 1
+                                |] pid
+                            return (Just (pid,name,mnick),lastEntry)
+                        Nothing -> return (Nothing,Nothing)
             case dbres of
                 Left err -> error $ show err
-                Right ((pid,name,mnick),lastEntry) -> do
+                Right (mperson,lastEntry) -> do
                     today <- liftIO $ getCurrentTime >>= return . utctDay
                     defaultLayout $ do
                         setTitle $ "Brandreth Guestbook"
