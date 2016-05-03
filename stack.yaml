@@ -1,0 +1,7 @@
+resolver: lts-5.15
+packages:
+- '.'
+extra-deps:
+- hasql-0.7.4
+- hasql-postgres-0.10.6
+- postgresql-binary-0.5.2.1
